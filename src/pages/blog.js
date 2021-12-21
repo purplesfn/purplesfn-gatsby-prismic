@@ -34,7 +34,14 @@ export const pageQuery = graphql`
             title {
               text
             }
+            content {
+              text
+            }
+            categories {
+              slug
+            }
           }
+          tags
         }
       }
     }

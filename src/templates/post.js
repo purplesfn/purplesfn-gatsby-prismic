@@ -13,6 +13,10 @@ const Post = ({ data }) => {
       <hr />
       <h1>{post.data.title.text}</h1>
       <div dangerouslySetInnerHTML={{ __html: post.data.content.html }} />
+      {post.data.categories.slug && (
+        <p>CATEGORIES: {post.data.categories.slug}</p>
+      )}
+      {post.tags.length > 0 ? <p> {post.tags}</p> : <p>No tags</p>}
     </Layout>
   )
 }
@@ -28,7 +32,11 @@ export const pageQuery = graphql`
         content {
           html
         }
+        categories {
+          slug
+        }
       }
+      tags
     }
   }
 `
