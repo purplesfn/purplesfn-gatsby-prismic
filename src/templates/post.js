@@ -3,10 +3,10 @@ import * as React from "react"
 
 import Layout from "../components/layout"
 
-const Post = ({ data }, props) => {
+const Post = ({ data, pageContext }) => {
   if (!data) return null
   const post = data.prismicPost
-  console.log(data, props)
+  console.log(pageContext)
 
   return (
     <Layout>
@@ -18,6 +18,23 @@ const Post = ({ data }, props) => {
         <p>CATEGORIES: {post.data.categories.slug}</p>
       )}
       {post.tags.length > 0 ? <p> {post.tags}</p> : <p>No tags</p>}
+
+      <ul>
+        <li>
+          {pageContext.prev && (
+            <Link to={`/blog/${pageContext.previous.slug}`} rel="prev">
+              prev
+            </Link>
+          )}
+        </li>
+        <li>
+          {pageContext.next && (
+            <Link to={`/blog/${pageContext.next.slug}`} rel="next">
+              next
+            </Link>
+          )}
+        </li>
+      </ul>
     </Layout>
   )
 }
