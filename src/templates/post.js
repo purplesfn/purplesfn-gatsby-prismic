@@ -6,7 +6,6 @@ import Layout from "../components/layout"
 const Post = ({ data, pageContext }) => {
   if (!data) return null
   const post = data.prismicPost
-  console.log(pageContext)
 
   return (
     <Layout>
@@ -22,14 +21,14 @@ const Post = ({ data, pageContext }) => {
       <ul>
         <li>
           {pageContext.prev && (
-            <Link to={`/blog/${pageContext.previous.slug}`} rel="prev">
+            <Link to={`/blog/${pageContext.prev.uid}`} rel="prev">
               prev
             </Link>
           )}
         </li>
         <li>
           {pageContext.next && (
-            <Link to={`/blog/${pageContext.next.slug}`} rel="next">
+            <Link to={`/blog/${pageContext.next.uid}`} rel="next">
               next
             </Link>
           )}
