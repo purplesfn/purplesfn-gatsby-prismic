@@ -19,7 +19,7 @@ const path = require("path")
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const pages = await graphql(`
+  const queryData = await graphql(`
     {
       allPrismicPost {
         nodes {
@@ -30,14 +30,20 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  const template = path.resolve("src/templates/post.js")
+  const posts = queryData.data.allPrismicPost.nodes
+  const postTemplate = path.resolve("src/templates/post.js")
 
-  pages.data.allPrismicPost.nodes.forEach(post => {
+  posts.forEach((post, index) => {
+    const previous = index === 0 ? null : posts[index - 1].node
+    const next = index === posts.length - 1 ? null : posts[index + 1].node
+
     createPage({
       path: `/blog/${post.uid}`,
-      component: template,
+      component: postTemplate,
       context: {
         uid: post.uid,
+        next,
+        previous,
       },
     })
   })

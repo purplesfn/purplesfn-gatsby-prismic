@@ -3,9 +3,10 @@ import * as React from "react"
 
 import Layout from "../components/layout"
 
-const Post = ({ data }) => {
+const Post = ({ data }, props) => {
   if (!data) return null
   const post = data.prismicPost
+  console.log(data, props)
 
   return (
     <Layout>
